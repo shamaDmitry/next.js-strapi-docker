@@ -14,11 +14,15 @@ import {
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { registerUserAction } from "@/data/actions/auth-actions";
-import { useFormState, useFormStatus } from "react-dom";
+import { useFormState } from "react-dom";
 import { ZodErrors } from "@/components/errors/zod-errors";
+import { StrapiErrors } from "@/components/errors/strapi-errors";
+import { SubmitButton } from "@/components/forms/submit-button";
 
 const INITIAL_STATE = {
   data: null,
+  strapiErrors: null,
+  zodErrors: null,
 };
 
 export function SignupForm() {
@@ -26,7 +30,8 @@ export function SignupForm() {
     registerUserAction,
     INITIAL_STATE
   );
-  const status = useFormStatus();
+
+  console.log("formState", formState);
 
   return (
     <div className="w-full max-w-md">
@@ -38,6 +43,7 @@ export function SignupForm() {
               Enter your details to create a new account
             </CardDescription>
           </CardHeader>
+
           <CardContent className="space-y-4">
             <div className="">
               <Label htmlFor="username" className="flex mb-2">
@@ -84,14 +90,21 @@ export function SignupForm() {
               <ZodErrors error={formState?.zodErrors?.password} />
             </div>
           </CardContent>
+
           <CardFooter className="flex flex-col">
-            <button className="w-full">Sign Up</button>
+            <SubmitButton
+              className="border py-2 px-3 rounded capitalize"
+              text="register"
+            />
+
+            <StrapiErrors error={formState?.strapiErrors} />
           </CardFooter>
         </Card>
+
         <div className="mt-4 text-center text-sm">
           Have an account?
           <Link className="underline ml-2" href="signin">
-            {status.pending ? "loading" : "Sing In"}
+            Sing In
           </Link>
         </div>
       </form>

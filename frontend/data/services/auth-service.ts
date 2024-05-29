@@ -13,11 +13,9 @@ interface LoginUserProps {
 
 const baseUrl = getStrapiURL();
 
-export async function registerUser(userData: RegisterUserProps) {
-  const url = new URL("/api/auth/local/register", baseUrl);
-
+export async function registerUserService(userData: RegisterUserProps) {
   try {
-    const response = await fetch(`http://cms:1337/api/auth/local/register`, {
+    const response = await fetch(`${baseUrl}/api/auth/local/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -32,7 +30,7 @@ export async function registerUser(userData: RegisterUserProps) {
   }
 }
 
-export async function loginUser(userData: LoginUserProps) {
+export async function loginUserService(userData: LoginUserProps) {
   const url = new URL("/api/auth/local", baseUrl);
 
   try {

@@ -35,7 +35,7 @@ services:
     networks:
       - strapi
   db:
-    image: postgres
+    image: postgres:14.1-alpine
     restart: always
     ports:
       - 5432:5432
