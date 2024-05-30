@@ -1,20 +1,48 @@
-import Link from "next/link";
+import ContentCard from "@/components/custom/content/content-card";
+import MainLayout from "@/components/custom/layouts/main-layout";
+import { Card, CardContent } from "@/components/ui/card";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
-export default function Home() {
+export default async function Home() {
   return (
-    <section>
-      <div className="container">
-        <nav className="flex justify-center gap-4 p-4 border-b mb-4">
-          <Link href="/signin">Sign-in</Link>
-          <Link href="/signup">Sign-up</Link>
-        </nav>
-      </div>
-      <div className="container">
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Corrupti
-        explicabo earum nihil officiis numquam molestias exercitationem
-        reiciendis facere tempora ex reprehenderit deserunt facilis magni,
-        obcaecati iure aliquam nostrum nobis quas.
-      </div>
-    </section>
+    <MainLayout>
+      <ContentCard>
+        <div className="container">
+          <h1 className="mb-4">Homepage</h1>
+
+          <div className="max-w-screen-md mx-auto px-12">
+            <Carousel>
+              <CarouselContent className="p-4">
+                {Array.from({ length: 5 }).map((_, index) => (
+                  <CarouselItem
+                    key={index}
+                    className="md:basis-1/2 lg:basis-1/3"
+                  >
+                    <div className="p-1">
+                      <Card>
+                        <CardContent className="flex aspect-square items-center justify-center shadow-lg p-6">
+                          <span className="text-3xl font-semibold">
+                            {index + 1}
+                          </span>
+                        </CardContent>
+                      </Card>
+                    </div>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+
+              <CarouselPrevious />
+              <CarouselNext />
+            </Carousel>
+          </div>
+        </div>
+      </ContentCard>
+    </MainLayout>
   );
 }

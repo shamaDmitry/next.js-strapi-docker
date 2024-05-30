@@ -1,4 +1,5 @@
-import Link from "next/link";
+import Navigation from "@/components/custom/core/navigation";
+import Footer from "@/components/custom/core/footer";
 
 export default function AuthLayout({
   children,
@@ -6,15 +7,18 @@ export default function AuthLayout({
   readonly children: React.ReactNode;
 }) {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-      <Link
-        href="/"
-        className="block border p-4 w-60 mx-auto bg-purple-50 text-center mb-4"
-      >
-        logo
-      </Link>
+    <>
+      <header className="absolute top-0 left-0 w-full bg-white border-b shadow">
+        <div className="container">
+          <Navigation className="" />
+        </div>
+      </header>
 
-      {children}
-    </div>
+      <main className="pt-[100px] flex flex-col items-center justify-center flex-1 bg-gray-100 py-12">
+        {children}
+      </main>
+
+      <Footer />
+    </>
   );
 }

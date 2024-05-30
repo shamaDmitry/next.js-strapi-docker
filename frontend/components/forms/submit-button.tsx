@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import { Loader2 } from "lucide-react";
 import { FC } from "react";
 import { useFormStatus } from "react-dom";
+import { Button } from "@/components/ui/button";
 
 interface SubmitButtonProps {
   text: string;
@@ -19,7 +20,7 @@ export const SubmitButton: FC<SubmitButtonProps> = ({
   const { pending, data, method, action } = useFormStatus();
 
   return (
-    <button
+    <Button
       className={cn({
         "w-full flex justify-center items-center h-11": true,
         [`${className}`]: className,
@@ -31,6 +32,6 @@ export const SubmitButton: FC<SubmitButtonProps> = ({
       ) : (
         text
       )}
-    </button>
+    </Button>
   );
 };

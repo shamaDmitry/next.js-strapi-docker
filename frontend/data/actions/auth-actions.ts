@@ -1,7 +1,10 @@
 "use server";
 
 import { z } from "zod";
-import { registerUserService } from "@/data/services/auth-service";
+import {
+  loginUserService,
+  registerUserService,
+} from "@/data/services/auth-service";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { JWT_TOKEN_NAME } from "@/setup";
@@ -16,6 +19,16 @@ const schemaRegister = z.object({
   email: z.string().email({
     message: "Please enter a valid email address",
   }),
+});
+
+const schemaLogin = z.object({
+  identifier: z.union([
+    z.string().min(3).max(20, {
+      message: "Username must be between 3 and 20 characters",
+    }),
+    z.string().email({ message: "Invalid email address" }),
+  ]),
+  password: z.string().min(6).max(100),
 });
 
 const config = {
@@ -59,4 +72,45 @@ export async function registerUserAction(prevState: any, formData: FormData) {
 
   cookies().set(JWT_TOKEN_NAME, responseData.jwt, config);
   redirect("/dashboard");
+}
+
+export async function loginUserAction(prevState: any, formData: FormData) {
+  const validatedFields = schemaLogin.safeParse({
+    identifier: formData.get("identifier"),
+    password: formData.get("password"),
+  });
+
+  if (!validatedFields.success) {
+    return {
+      zodErrors: validatedFields.error.flatten().fieldErrors,
+      strapiErrors: null,
+    };
+  }
+
+  const responseData = await loginUserService(validatedFields.data);
+
+  console.log("responseData", responseData);
+
+  if (!responseData) {
+    return {
+      strapiErrors: null,
+      zodErrors: null,
+      message: "Ops! Something went wrong. Please try again.",
+    };
+  }
+
+  if (responseData.error) {
+    return {
+      strapiErrors: responseData.error,
+      zodErrors: null,
+    };
+  }
+
+  cookies().set(JWT_TOKEN_NAME, responseData.jwt, config);
+  redirect("/dashboard");
+}
+
+export async function logOutAction() {
+  cookies().set(JWT_TOKEN_NAME, "", { ...config, maxAge: 0 });
+  redirect("/");
 }

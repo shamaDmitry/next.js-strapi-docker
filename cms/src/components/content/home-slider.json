@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_content_home_sliders",
+  "info": {
+    "displayName": "Home Slider",
+    "icon": "dashboard"
+  },
+  "options": {},
+  "attributes": {
+    "text": {
+      "type": "text"
+    }
+  }
+}

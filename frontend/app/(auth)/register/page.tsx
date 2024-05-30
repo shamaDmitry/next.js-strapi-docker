@@ -3,9 +3,11 @@ import React, { FC } from "react";
 
 const Page: FC = () => {
   return (
-    <div>
-      <SignupForm />
-    </div>
+    <section className="container">
+      <div className="w-full max-w-screen-sm mx-auto">
+        <SignupForm />
+      </div>
+    </section>
   );
 };
 

@@ -7,7 +7,7 @@ const Page: FC = () => {
     <MainLayout>
       <ContentCard>
         <div className="container">
-          <h1>Dashboard</h1>
+          <h1>Profile</h1>
         </div>
       </ContentCard>
     </MainLayout>
