@@ -834,7 +834,9 @@ export interface ApiHomePageHomePage extends Schema.SingleType {
   attributes: {
     title: Attribute.String;
     description: Attribute.Text;
-    slider: Attribute.Component<'content.home-slider', true>;
+    contentSections: Attribute.DynamicZone<
+      ['content.home-slider', 'content.testimonials']
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

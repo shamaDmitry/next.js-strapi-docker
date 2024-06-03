@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_content_testimonials",
+  "info": {
+    "displayName": "Testimonials",
+    "icon": "repeat"
+  },
+  "options": {},
+  "attributes": {
+    "testimonials": {
+      "type": "text"
+    }
+  }
+}

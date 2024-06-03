@@ -112,5 +112,5 @@ export async function loginUserAction(prevState: any, formData: FormData) {
 
 export async function logOutAction() {
   cookies().set(JWT_TOKEN_NAME, "", { ...config, maxAge: 0 });
-  redirect("/");
+  redirect("/login");
 }

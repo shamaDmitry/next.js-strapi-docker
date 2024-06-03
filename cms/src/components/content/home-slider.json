@@ -1,12 +1,27 @@
 {
   "collectionName": "components_content_home_sliders",
   "info": {
-    "displayName": "Home Slider",
-    "icon": "dashboard"
+    "displayName": "SliderItem",
+    "icon": "dashboard",
+    "description": ""
   },
   "options": {},
   "attributes": {
-    "text": {
+    "sliderTitle": {
+      "type": "string"
+    },
+    "sliderMedia": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "sliderDescription": {
       "type": "text"
     }
   }

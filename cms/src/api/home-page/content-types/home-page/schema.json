@@ -18,10 +18,12 @@
     "description": {
       "type": "text"
     },
-    "slider": {
-      "type": "component",
-      "repeatable": true,
-      "component": "content.home-slider"
+    "contentSections": {
+      "type": "dynamiczone",
+      "components": [
+        "content.home-slider",
+        "content.testimonials"
+      ]
     }
   }
 }
