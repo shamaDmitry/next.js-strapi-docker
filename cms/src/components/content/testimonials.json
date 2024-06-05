@@ -1,8 +1,9 @@
 {
   "collectionName": "components_content_testimonials",
   "info": {
-    "displayName": "Testimonials",
-    "icon": "repeat"
+    "displayName": "TestimonialsItem",
+    "icon": "emotionHappy",
+    "description": ""
   },
   "options": {},
   "attributes": {

@@ -1,45 +1,80 @@
 import ContentCard from "@/components/custom/content/content-card";
+import Reviews from "@/components/custom/content/reviews";
+import Slider, { ISliderItem } from "@/components/custom/content/slider";
 import MainLayout from "@/components/custom/layouts/main-layout";
-import { Card, CardContent } from "@/components/ui/card";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
+import { getStrapiComponent, getStrapiData, getStrapiURL } from "@/lib/utils";
+import qs from "qs";
+
+const homePageQuery = qs.stringify({
+  populate: {
+    contentSections: {
+      on: {
+        "content.slider": { populate: "*" },
+        "content.reviews": { populate: "*" },
+      },
+    },
+  },
+});
+
+async function getPageData(path: string) {
+  const baseUrl = getStrapiURL();
+
+  const url = new URL(path, baseUrl);
+  url.search = homePageQuery;
+
+  try {
+    const response = await fetch(url.href);
+    const data = await response.json();
+
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
+}
 
 export default async function Home() {
+  const res = await getPageData("/api/home-page");
+
+  const { title, description, contentSections } = getStrapiData(res);
+
+  const sliderData = getStrapiComponent({
+    componentsData: contentSections,
+    componentName: "content.slider",
+  });
+
+  const reviewsData = getStrapiComponent({
+    componentsData: contentSections,
+    componentName: "content.reviews",
+  });
+
   return (
     <MainLayout>
       <ContentCard>
         <div className="container">
-          <h1 className="mb-4">Homepage</h1>
+          <div className="text-center">
+            <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl mb-5 border-b pb-4 inline-block">
+              {title}
+            </h1>
 
-          <div className="max-w-screen-md mx-auto px-12">
-            <Carousel>
-              <CarouselContent className="p-4">
-                {Array.from({ length: 5 }).map((_, index) => (
-                  <CarouselItem
-                    key={index}
-                    className="md:basis-1/2 lg:basis-1/3"
-                  >
-                    <div className="p-1">
-                      <Card>
-                        <CardContent className="flex aspect-square items-center justify-center shadow-lg p-6">
-                          <span className="text-3xl font-semibold">
-                            {index + 1}
-                          </span>
-                        </CardContent>
-                      </Card>
-                    </div>
-                  </CarouselItem>
-                ))}
-              </CarouselContent>
+            <h2 className="scroll-m-20 pb-2 text-3xl font-semibold tracking-tight first:mt-0 mb-12">
+              {description}
+            </h2>
+          </div>
 
-              <CarouselPrevious />
-              <CarouselNext />
-            </Carousel>
+          <div className="px-12 mb-12">
+            <h3 className="px-6 scroll-m-20 text-2xl font-semibold tracking-tight">
+              Slider from cms
+            </h3>
+
+            <Slider data={sliderData.items} />
+          </div>
+
+          <div className="px-12">
+            <h3 className="px-6 scroll-m-20 text-2xl font-semibold tracking-tight mb-4">
+              Reviews from cms
+            </h3>
+
+            <Reviews className="px-6" data={reviewsData.items} />
           </div>
         </div>
       </ContentCard>

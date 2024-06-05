@@ -1,0 +1,21 @@
+{
+  "kind": "singleType",
+  "collectionName": "dashboard_pages",
+  "info": {
+    "singularName": "dashboard-page",
+    "pluralName": "dashboard-pages",
+    "displayName": "Dashboard Page"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    }
+  }
+}

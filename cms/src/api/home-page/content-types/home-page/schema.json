@@ -21,8 +21,8 @@
     "contentSections": {
       "type": "dynamiczone",
       "components": [
-        "content.home-slider",
-        "content.testimonials"
+        "content.slider",
+        "content.reviews"
       ]
     }
   }

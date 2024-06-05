@@ -31,8 +31,6 @@ export function SignupForm() {
     INITIAL_STATE
   );
 
-  console.log("formState", formState);
-
   return (
     <form action={formAction}>
       <Card>

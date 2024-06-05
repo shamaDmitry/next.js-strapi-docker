@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_content_reviews",
+  "info": {
+    "displayName": "Reviews",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "items": {
+      "type": "component",
+      "repeatable": true,
+      "component": "content.testimonials"
+    }
+  }
+}

@@ -18,7 +18,7 @@ const MainLayout: FC<MainLayoutProps> = ({ children, className }) => {
 
       <main
         className={cn({
-          "pt-20 flex flex-col flex-1 bg-gray-100 py-12": true,
+          "py-20 flex flex-col flex-1 bg-gray-100 ": true,
           [`${className}`]: className,
         })}
       >

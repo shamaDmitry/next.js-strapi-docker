@@ -17,4 +17,28 @@ export function getStrapiMedia(url: string | null) {
   return `${getStrapiURL()}${url}`;
 }
 
+export function getStrapiData(dataObj: { data: any; meta: any }) {
+  return dataObj.data.attributes;
+}
+
+interface getStrapiComponentProps {
+  componentsData: Array<any>;
+  componentName: string;
+}
+
+export function getStrapiComponent({
+  componentsData,
+  componentName,
+}: getStrapiComponentProps) {
+  const findedComponent = componentsData.filter(
+    (item) => item["__component"] === componentName
+  );
+
+  if (findedComponent.length) {
+    return findedComponent[0];
+  }
+
+  return findedComponent;
+}
+
 export const uuid = () => v4();

@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_content_sliders",
+  "info": {
+    "displayName": "Slider",
+    "icon": "code",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "items": {
+      "type": "component",
+      "repeatable": true,
+      "component": "content.home-slider"
+    }
+  }
+}
