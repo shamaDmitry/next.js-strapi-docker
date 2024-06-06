@@ -15,6 +15,12 @@ export interface ISliderItem {
   sliderDescription: string;
 }
 
+export interface SliderData {
+  id: string;
+  __component: string;
+  items: ISliderItem[];
+}
+
 interface SliderProps {
   className?: string;
   data: ISliderItem[];

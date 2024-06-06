@@ -4,7 +4,7 @@ export interface ContentHomeSlider extends Schema.Component {
   collectionName: 'components_content_home_sliders';
   info: {
     displayName: 'SliderItem';
-    icon: 'dashboard';
+    icon: '';
     description: '';
   };
   attributes: {
@@ -14,14 +14,30 @@ export interface ContentHomeSlider extends Schema.Component {
   };
 }
 
+export interface ContentReviewItem extends Schema.Component {
+  collectionName: 'components_content_review_items';
+  info: {
+    displayName: 'ReviewItem';
+  };
+  attributes: {
+    title: Attribute.String;
+    review: Attribute.Text;
+    customer: Attribute.Relation<
+      'content.review-item',
+      'oneToOne',
+      'api::customer.customer'
+    >;
+  };
+}
+
 export interface ContentReviews extends Schema.Component {
   collectionName: 'components_content_reviews';
   info: {
-    displayName: 'Reviews';
+    displayName: 'ReviewSection';
     description: '';
   };
   attributes: {
-    items: Attribute.Component<'content.testimonials', true>;
+    reviews: Attribute.Component<'content.review-item', true>;
   };
 }
 
@@ -29,7 +45,7 @@ export interface ContentSlider extends Schema.Component {
   collectionName: 'components_content_sliders';
   info: {
     displayName: 'Slider';
-    icon: 'code';
+    icon: '';
     description: '';
   };
   attributes: {
@@ -37,25 +53,13 @@ export interface ContentSlider extends Schema.Component {
   };
 }
 
-export interface ContentTestimonials extends Schema.Component {
-  collectionName: 'components_content_testimonials';
-  info: {
-    displayName: 'TestimonialsItem';
-    icon: 'emotionHappy';
-    description: '';
-  };
-  attributes: {
-    testimonials: Attribute.Text;
-  };
-}
-
 declare module '@strapi/types' {
   export module Shared {
     export interface Components {
       'content.home-slider': ContentHomeSlider;
+      'content.review-item': ContentReviewItem;
       'content.reviews': ContentReviews;
       'content.slider': ContentSlider;
-      'content.testimonials': ContentTestimonials;
     }
   }
 }

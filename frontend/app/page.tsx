@@ -1,8 +1,12 @@
 import ContentCard from "@/components/custom/content/content-card";
-import Reviews from "@/components/custom/content/reviews";
-import Slider, { ISliderItem } from "@/components/custom/content/slider";
+import Reviews, { ReviewsData } from "@/components/custom/content/reviews";
+import Slider, { SliderData } from "@/components/custom/content/slider";
 import MainLayout from "@/components/custom/layouts/main-layout";
-import { getStrapiComponent, getStrapiData, getStrapiURL } from "@/lib/utils";
+import {
+  flattenAttributes,
+  getStrapiComponent,
+  getStrapiURL,
+} from "@/lib/utils";
 import qs from "qs";
 
 const homePageQuery = qs.stringify({
@@ -15,6 +19,30 @@ const homePageQuery = qs.stringify({
     },
   },
 });
+
+// const homePageQuery = qs.stringify(
+//   {
+//     populate: {
+//       contentSections: {
+//         on: {
+//           "content.reviews": {
+//             fields: ["title"],
+//             populate: {
+//               customer: {
+//                 fields: ["position"],
+//               },
+//             },
+//           },
+//         },
+//       },
+//     },
+//   },
+//   {
+//     encodeValuesOnly: true,
+//   }
+// );
+
+console.log("homePageQuery", homePageQuery);
 
 async function getPageData(path: string) {
   const baseUrl = getStrapiURL();
@@ -35,14 +63,14 @@ async function getPageData(path: string) {
 export default async function Home() {
   const res = await getPageData("/api/home-page");
 
-  const { title, description, contentSections } = getStrapiData(res);
+  const { title, description, contentSections } = flattenAttributes(res);
 
-  const sliderData = getStrapiComponent({
+  const sliderData: SliderData = getStrapiComponent({
     componentsData: contentSections,
     componentName: "content.slider",
   });
 
-  const reviewsData = getStrapiComponent({
+  const reviewsData: ReviewsData = getStrapiComponent({
     componentsData: contentSections,
     componentName: "content.reviews",
   });
@@ -74,7 +102,7 @@ export default async function Home() {
               Reviews from cms
             </h3>
 
-            <Reviews className="px-6" data={reviewsData.items} />
+            <Reviews className="px-6" data={reviewsData.reviews} />
           </div>
         </div>
       </ContentCard>

@@ -1,15 +1,15 @@
 {
   "collectionName": "components_content_reviews",
   "info": {
-    "displayName": "Reviews",
+    "displayName": "ReviewSection",
     "description": ""
   },
   "options": {},
   "attributes": {
-    "items": {
+    "reviews": {
       "type": "component",
       "repeatable": true,
-      "component": "content.testimonials"
+      "component": "content.review-item"
     }
   }
 }

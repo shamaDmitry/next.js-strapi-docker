@@ -1,14 +1,21 @@
 import { cn } from "@/lib/utils";
 import React, { FC } from "react";
 
-export interface ISliderItem {
+export interface ReviewsItem {
   id: string;
-  testimonials: string;
+  title: string;
+  review: string;
+}
+
+export interface ReviewsData {
+  id: string;
+  __component: string;
+  reviews: ReviewsItem[];
 }
 
 interface ReviewsProps {
   className?: string;
-  data: ISliderItem[];
+  data: ReviewsItem[];
 }
 
 const Reviews: FC<ReviewsProps> = ({ className, data }) => {
@@ -16,16 +23,18 @@ const Reviews: FC<ReviewsProps> = ({ className, data }) => {
     <div
       className={cn({
         [`${className}`]: className,
-        "flex flex-wrap gap-4": true,
+        "grid grid-cols-1 md:grid-cols-2 gap-4": true,
       })}
     >
       {data.map((review) => {
         return (
           <div
             key={review.id}
-            className="border aspect-square h-60 flex justify-center bg-white shadow rounded p-4 overflow-auto"
+            className="w-full border aspect-square h-60 flex flex-col bg-white shadow rounded p-4 overflow-auto"
           >
-            {review.testimonials}
+            <h1 className="font-bold mb-4">{review.title}</h1>
+
+            <p>{review.review}</p>
           </div>
         );
       })}

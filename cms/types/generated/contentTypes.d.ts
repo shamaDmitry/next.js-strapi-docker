@@ -820,6 +820,39 @@ export interface ApiArticleArticle extends Schema.CollectionType {
   };
 }
 
+export interface ApiCustomerCustomer extends Schema.CollectionType {
+  collectionName: 'customers';
+  info: {
+    singularName: 'customer';
+    pluralName: 'customers';
+    displayName: 'Customer';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    fullName: Attribute.String;
+    position: Attribute.String;
+    avatar: Attribute.Media;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::customer.customer',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::customer.customer',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiDashboardPageDashboardPage extends Schema.SingleType {
   collectionName: 'dashboard_pages';
   info: {
@@ -867,7 +900,15 @@ export interface ApiHomePageHomePage extends Schema.SingleType {
     description: Attribute.Text;
     contentSections: Attribute.DynamicZone<
       ['content.slider', 'content.reviews']
-    >;
+    > &
+      Attribute.Required &
+      Attribute.SetMinMax<
+        {
+          min: 1;
+        },
+        number
+      >;
+    test: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -905,6 +946,7 @@ declare module '@strapi/types' {
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'plugin::i18n.locale': PluginI18NLocale;
       'api::article.article': ApiArticleArticle;
+      'api::customer.customer': ApiCustomerCustomer;
       'api::dashboard-page.dashboard-page': ApiDashboardPageDashboardPage;
       'api::home-page.home-page': ApiHomePageHomePage;
     }

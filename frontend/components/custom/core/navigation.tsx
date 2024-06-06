@@ -22,7 +22,7 @@ const Navigation: FC<NavigationProps> = async ({ className }) => {
   return (
     <nav
       className={cn({
-        "flex items-center py-2 h-20": true,
+        "flex items-center justify-between py-2 h-20": true,
         [`${className}`]: className,
       })}
     >
@@ -33,15 +33,21 @@ const Navigation: FC<NavigationProps> = async ({ className }) => {
         logo
       </Link>
 
-      <div className="flex items-center gap-4 justify-center flex-1">
-        {menu.map((menuItem) => {
-          return (
-            <Link key={menuItem.id} href={menuItem.href} className="capitalize">
-              {menuItem.text}
-            </Link>
-          );
-        })}
-      </div>
+      {currentUser.data && (
+        <div className="flex items-center gap-4 justify-center flex-1">
+          {menu.map((menuItem) => {
+            return (
+              <Link
+                key={menuItem.id}
+                href={menuItem.href}
+                className="capitalize"
+              >
+                {menuItem.text}
+              </Link>
+            );
+          })}
+        </div>
+      )}
 
       {!currentUser.data && (
         <div className="flex justify-center gap-4 p-4">
