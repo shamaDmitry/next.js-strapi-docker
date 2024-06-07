@@ -17,6 +17,11 @@
     },
     "content": {
       "type": "richtext"
+    },
+    "article_type": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::article-type.article-type"
     }
   }
 }

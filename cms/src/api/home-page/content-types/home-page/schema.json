@@ -26,9 +26,6 @@
       ],
       "required": true,
       "min": 1
-    },
-    "test": {
-      "type": "string"
     }
   }
 }

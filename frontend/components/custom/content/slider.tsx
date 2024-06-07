@@ -6,20 +6,10 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { cn } from "@/lib/utils";
+import { cn, getAssetURL } from "@/lib/utils";
+import { ISliderItem } from "@/types/strapi";
+import Image from "next/image";
 import React, { FC } from "react";
-
-export interface ISliderItem {
-  id: string;
-  sliderTitle: string;
-  sliderDescription: string;
-}
-
-export interface SliderData {
-  id: string;
-  __component: string;
-  items: ISliderItem[];
-}
 
 interface SliderProps {
   className?: string;
@@ -27,6 +17,8 @@ interface SliderProps {
 }
 
 const Slider: FC<SliderProps> = ({ className, data }) => {
+  console.log("data", data);
+
   return (
     <Carousel
       className={cn({
@@ -34,23 +26,35 @@ const Slider: FC<SliderProps> = ({ className, data }) => {
       })}
     >
       <CarouselContent className="p-4">
-        {data.map((item) => (
-          <CarouselItem key={item.id} className="">
-            <div className="p-1">
-              <Card>
-                <CardContent className="flex flex-col items-center justify-center shadow-inner p-10">
-                  <div className="text-3xl font-semibold">
-                    {item.sliderTitle}
-                  </div>
+        {data.map((item) => {
+          const media = item.sliderMedia;
 
-                  <div className="text-xl font-semibold">
-                    {item.sliderDescription}
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-          </CarouselItem>
-        ))}
+          return (
+            <CarouselItem key={item.id} className="">
+              <div className="p-1">
+                <Card>
+                  <CardContent className="flex flex-col items-center justify-center shadow-inner p-10">
+                    <Image
+                      className="mb-4"
+                      src={`${getAssetURL()}${media.url}`}
+                      alt={media.alternativeText}
+                      width={media.width}
+                      height={media.width}
+                    />
+
+                    <div className="text-3xl font-semibold mb-2">
+                      {item.sliderTitle}
+                    </div>
+
+                    <div className="text-xl font-semibold">
+                      {item.sliderDescription}
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            </CarouselItem>
+          );
+        })}
       </CarouselContent>
 
       <CarouselPrevious />

@@ -10,6 +10,10 @@ export function getStrapiURL() {
   return process.env.NEXT_PUBLIC_STRAPI_URL ?? "http://cms:1337";
 }
 
+export function getAssetURL() {
+  return process.env.NEXT_PUBLIC_STRAPI_ASSET_URL ?? "http://localhost:1337";
+}
+
 export function getStrapiMedia(url: string | null) {
   if (url == null) return null;
   if (url.startsWith("data:")) return url;
@@ -77,4 +81,20 @@ export function flattenAttributes(data: any): any {
   }
 
   return flattened;
+}
+
+export async function getPageData(path: string, query: string) {
+  const baseUrl = getStrapiURL();
+
+  const url = new URL(path, baseUrl);
+  url.search = query;
+
+  try {
+    const response = await fetch(url.href, { cache: "no-store" });
+    const data = await response.json();
+
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
 }

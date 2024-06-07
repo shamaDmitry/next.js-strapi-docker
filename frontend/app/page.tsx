@@ -1,67 +1,17 @@
 import ContentCard from "@/components/custom/content/content-card";
-import Reviews, { ReviewsData } from "@/components/custom/content/reviews";
-import Slider, { SliderData } from "@/components/custom/content/slider";
+import Reviews from "@/components/custom/content/reviews";
+import Slider from "@/components/custom/content/slider";
 import MainLayout from "@/components/custom/layouts/main-layout";
 import {
   flattenAttributes,
+  getPageData,
   getStrapiComponent,
-  getStrapiURL,
 } from "@/lib/utils";
-import qs from "qs";
-
-const homePageQuery = qs.stringify({
-  populate: {
-    contentSections: {
-      on: {
-        "content.slider": { populate: "*" },
-        "content.reviews": { populate: "*" },
-      },
-    },
-  },
-});
-
-// const homePageQuery = qs.stringify(
-//   {
-//     populate: {
-//       contentSections: {
-//         on: {
-//           "content.reviews": {
-//             fields: ["title"],
-//             populate: {
-//               customer: {
-//                 fields: ["position"],
-//               },
-//             },
-//           },
-//         },
-//       },
-//     },
-//   },
-//   {
-//     encodeValuesOnly: true,
-//   }
-// );
-
-console.log("homePageQuery", homePageQuery);
-
-async function getPageData(path: string) {
-  const baseUrl = getStrapiURL();
-
-  const url = new URL(path, baseUrl);
-  url.search = homePageQuery;
-
-  try {
-    const response = await fetch(url.href);
-    const data = await response.json();
-
-    return data;
-  } catch (error) {
-    console.error(error);
-  }
-}
+import { homePageQuery } from "@/queries/homepage";
+import { ReviewsData, SliderData } from "@/types/strapi";
 
 export default async function Home() {
-  const res = await getPageData("/api/home-page");
+  const res = await getPageData("/api/home-page", homePageQuery);
 
   const { title, description, contentSections } = flattenAttributes(res);
 

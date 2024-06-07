@@ -802,6 +802,11 @@ export interface ApiArticleArticle extends Schema.CollectionType {
   attributes: {
     title: Attribute.String;
     content: Attribute.RichText;
+    article_type: Attribute.Relation<
+      'api::article.article',
+      'oneToOne',
+      'api::article-type.article-type'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -813,6 +818,36 @@ export interface ApiArticleArticle extends Schema.CollectionType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::article.article',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiArticleTypeArticleType extends Schema.CollectionType {
+  collectionName: 'article_types';
+  info: {
+    singularName: 'article-type';
+    pluralName: 'article-types';
+    displayName: 'ArticleType';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    type: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::article-type.article-type',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::article-type.article-type',
       'oneToOne',
       'admin::user'
     > &
@@ -908,7 +943,6 @@ export interface ApiHomePageHomePage extends Schema.SingleType {
         },
         number
       >;
-    test: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -946,6 +980,7 @@ declare module '@strapi/types' {
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'plugin::i18n.locale': PluginI18NLocale;
       'api::article.article': ApiArticleArticle;
+      'api::article-type.article-type': ApiArticleTypeArticleType;
       'api::customer.customer': ApiCustomerCustomer;
       'api::dashboard-page.dashboard-page': ApiDashboardPageDashboardPage;
       'api::home-page.home-page': ApiHomePageHomePage;
