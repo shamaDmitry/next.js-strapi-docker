@@ -2,6 +2,7 @@ import ContentCard from "@/components/custom/content/content-card";
 import Reviews from "@/components/custom/content/reviews";
 import Slider from "@/components/custom/content/slider";
 import MainLayout from "@/components/custom/layouts/main-layout";
+import { Counter } from "@/components/custom/user/counter";
 import {
   flattenAttributes,
   getPageData,
@@ -37,6 +38,14 @@ export default async function Home() {
             <h2 className="scroll-m-20 pb-2 text-3xl font-semibold tracking-tight first:mt-0 mb-12">
               {description}
             </h2>
+          </div>
+
+          <div className="max-w-sm mx-auto text-center space-y-4 mb-8">
+            <h3 className="px-6 scroll-m-20 text-2xl font-semibold tracking-tight">
+              redux counter
+            </h3>
+
+            <Counter />
           </div>
 
           <div className="px-12 mb-12">

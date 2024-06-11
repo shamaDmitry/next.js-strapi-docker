@@ -23,7 +23,7 @@ const UserNavMenu: FC<UserNavMenuProps> = ({ username, email, avatar }) => {
     <DropdownMenu>
       <DropdownMenuTrigger className="outline-none flex justify-center flex-col items-center">
         <Avatar className="mb-1">
-          <AvatarImage src={avatar || "https://placehold.co/200x200"} />
+          <AvatarImage src={avatar} />
           <AvatarFallback>{username.charAt(0)}</AvatarFallback>
         </Avatar>
 

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { FC } from "react";
-import UserNavMenu from "../user/UserNavMenu";
+import UserNavMenu from "../user/user-nav-menu";
 import { getUserMeLoader } from "@/data/services/get-user-me-loader";
 import { cn, uuid } from "@/lib/utils";
 

@@ -17,8 +17,6 @@ interface SliderProps {
 }
 
 const Slider: FC<SliderProps> = ({ className, data }) => {
-  console.log("data", data);
-
   return (
     <Carousel
       className={cn({
