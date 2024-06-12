@@ -14,6 +14,15 @@ export interface ContentHomeSlider extends Schema.Component {
   };
 }
 
+export interface ContentPostsList extends Schema.Component {
+  collectionName: 'components_content_posts_lists';
+  info: {
+    displayName: 'PostsList';
+    description: '';
+  };
+  attributes: {};
+}
+
 export interface ContentReviewItem extends Schema.Component {
   collectionName: 'components_content_review_items';
   info: {
@@ -57,6 +66,7 @@ declare module '@strapi/types' {
   export module Shared {
     export interface Components {
       'content.home-slider': ContentHomeSlider;
+      'content.posts-list': ContentPostsList;
       'content.review-item': ContentReviewItem;
       'content.reviews': ContentReviews;
       'content.slider': ContentSlider;

@@ -807,6 +807,7 @@ export interface ApiArticleArticle extends Schema.CollectionType {
       'oneToOne',
       'api::article-type.article-type'
     >;
+    slug: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -848,6 +849,37 @@ export interface ApiArticleTypeArticleType extends Schema.CollectionType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::article-type.article-type',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiBlogPageBlogPage extends Schema.SingleType {
+  collectionName: 'blog_pages';
+  info: {
+    singularName: 'blog-page';
+    pluralName: 'blog-pages';
+    displayName: 'Blog Page';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    title: Attribute.String;
+    description: Attribute.Text;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::blog-page.blog-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::blog-page.blog-page',
       'oneToOne',
       'admin::user'
     > &
@@ -981,6 +1013,7 @@ declare module '@strapi/types' {
       'plugin::i18n.locale': PluginI18NLocale;
       'api::article.article': ApiArticleArticle;
       'api::article-type.article-type': ApiArticleTypeArticleType;
+      'api::blog-page.blog-page': ApiBlogPageBlogPage;
       'api::customer.customer': ApiCustomerCustomer;
       'api::dashboard-page.dashboard-page': ApiDashboardPageDashboardPage;
       'api::home-page.home-page': ApiHomePageHomePage;

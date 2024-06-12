@@ -35,3 +35,16 @@ export interface ReviewsData {
   __component: string;
   reviews: ReviewsItem[];
 }
+
+export interface PostType {
+  id: string;
+  type: string;
+}
+
+export interface Post {
+  id: string;
+  title: string;
+  content: string;
+  slug: string;
+  article_type: PostType;
+}

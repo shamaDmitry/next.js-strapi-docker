@@ -14,6 +14,11 @@ const menu = [
     text: "dashboard",
     href: "/dashboard",
   },
+  {
+    id: uuid(),
+    text: "blog",
+    href: "/blog",
+  },
 ];
 
 const Navigation: FC<NavigationProps> = async ({ className }) => {
