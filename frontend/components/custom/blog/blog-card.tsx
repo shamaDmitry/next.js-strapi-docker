@@ -3,6 +3,7 @@ import { cn } from "@/lib/utils";
 import { Post } from "@/types/strapi";
 import Link from "next/link";
 import React, { FC } from "react";
+import BlogBadge from "@/components/custom/blog/blog-badge";
 
 interface BlogListProps {
   className?: string;
@@ -17,16 +18,12 @@ const BlogCard: FC<BlogListProps> = ({ postData, className }) => {
       key={postData.id}
       href={`/blog/${postData.id}`}
       className={cn({
-        "border p-4 flex shadow flex-col": true,
+        "border p-4 flex shadow flex-col hover:scale-105 transition-transform":
+          true,
         [`${className}`]: className,
       })}
     >
-      <Badge
-        variant={type === "guides" ? "default" : "destructive"}
-        className="justify-center max-w-fit mb-2"
-      >
-        {type}
-      </Badge>
+      <BlogBadge type={type} />
 
       <h4 className="capitalize font-medium">{postData.title}</h4>
     </Link>
