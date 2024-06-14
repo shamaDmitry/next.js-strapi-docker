@@ -8,19 +8,19 @@ interface BlogListProps {
   className?: string;
   searchTerm?: string;
   type?: string;
+  data: Post[];
 }
 
 interface BlogPosts {
   data: Post[];
 }
 
-const BlogList: FC<BlogListProps> = async ({ className, searchTerm, type }) => {
-  const postsData = await getPageData(
-    "/api/articles",
-    blogListQuery({ searchTerm, type })
-  );
-  const posts: BlogPosts = flattenAttributes(postsData);
-
+const BlogList: FC<BlogListProps> = async ({
+  className,
+  searchTerm,
+  type,
+  data,
+}) => {
   return (
     <div
       className={cn({
@@ -28,9 +28,9 @@ const BlogList: FC<BlogListProps> = async ({ className, searchTerm, type }) => {
         [`${className}`]: className,
       })}
     >
-      {!posts.data.length && <p>nothing is here</p>}
+      {!data.length && <p>nothing is here</p>}
 
-      {posts.data.map((post) => {
+      {data.map((post) => {
         return <BlogCard postData={post} key={post.id} />;
       })}
     </div>

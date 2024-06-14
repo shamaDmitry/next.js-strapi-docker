@@ -21,7 +21,10 @@ const TypeSelector: FC<BlogListProps> = ({ className, types }) => {
 
   const handleClick = (type: string) => {
     const params = new URLSearchParams(searchParams);
+
     setSelectedType(type);
+
+    params.set("page", "1");
 
     if (type === "all") {
       params.delete("type");
@@ -44,6 +47,7 @@ const TypeSelector: FC<BlogListProps> = ({ className, types }) => {
         >
           All
         </Button>
+
         {types.map((type) => {
           return (
             <Button

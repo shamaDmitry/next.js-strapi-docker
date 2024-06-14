@@ -19,6 +19,8 @@ const SearchField: FC<BlogListProps> = ({ className }) => {
   const handleSearch = useDebouncedCallback(async (searchTerm: string) => {
     const params = new URLSearchParams(searchParams);
 
+    params.set("page", "1");
+
     if (searchTerm) {
       params.set("searchTerm", searchTerm.trim());
     } else {

@@ -12,25 +12,47 @@ import SearchField from "@/components/custom/blog/search-field";
 import TypeSelector from "@/components/custom/blog/type-selector";
 import { Loader2 } from "lucide-react";
 import CustomPagination from "@/components/custom/blog/custom-pagination";
+import { blogListQuery } from "@/queries/blog-list";
 
-const Page: FC = async ({
-  searchParams,
-}: {
-  searchParams?: {
+const PAGE_SIZE = 3;
+
+interface PageProps {
+  searchParams: {
     searchTerm?: string;
     type?: string;
+    page?: number;
   };
-}) => {
+}
+
+const Page: FC<PageProps> = async ({ searchParams }) => {
   const searchTerm = searchParams?.searchTerm;
   const type = searchParams?.type;
+  const page = searchParams?.page || 1;
 
   const pageData = await getPageData("/api/blog-page", "");
   const { title, description } = flattenAttributes(pageData);
+
   const allTypes = flattenAttributes(
     await getPageData("/api/article-types", "")
   );
 
-  console.log("type", type);
+  const postsData = flattenAttributes(
+    await getPageData(
+      "/api/articles",
+      blogListQuery({
+        searchTerm,
+        type,
+        pagination: {
+          page: page,
+          pageSize: PAGE_SIZE,
+        },
+      })
+    )
+  );
+  const paginationData = postsData.meta.pagination;
+
+  console.log("page", page);
+  console.log("searchParams", searchParams);
 
   return (
     <MainLayout>
@@ -53,13 +75,19 @@ const Page: FC = async ({
               fallback={<Loader2 className="mr-2 h-4 w-4 animate-spin" />}
             >
               <BlogList
+                data={postsData.data}
                 searchTerm={searchTerm}
                 type={type ? type : "all"}
                 className="mb-8"
               />
             </Suspense>
 
-            <CustomPagination />
+            <CustomPagination
+              currentPage={paginationData.page}
+              path="blog"
+              itemsPerPage={PAGE_SIZE}
+              totalItems={paginationData.total}
+            />
           </div>
         </div>
       </ContentCard>
