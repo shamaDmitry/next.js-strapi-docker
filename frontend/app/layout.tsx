@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import StoreProvider from "@/components/custom/store/store-provider";
+import NextTopLoader from "nextjs-toploader";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,6 +25,8 @@ export default function RootLayout({
             [`${inter.className} flex flex-col min-h-screen`]: true,
           })}
         >
+          <NextTopLoader />
+
           {children}
         </body>
       </html>

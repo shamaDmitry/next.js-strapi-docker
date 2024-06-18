@@ -1,3 +1,5 @@
+"use server";
+
 import { JWT_TOKEN_NAME } from "@/setup";
 import { cookies } from "next/headers";
 

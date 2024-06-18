@@ -4,30 +4,42 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { getUserMeLoader } from "@/data/services/get-user-me-loader";
 import Link from "next/link";
 import { FC } from "react";
 
 interface UserNavMenuProps {
-  username: string;
-  email: string;
+  isLoading: boolean;
+  username: string | null;
+  email?: string;
   avatar?: string;
 }
 
-const UserNavMenu: FC<UserNavMenuProps> = ({ username, email, avatar }) => {
+const UserNavMenu: FC<UserNavMenuProps> = ({
+  isLoading,
+  username,
+  email,
+  avatar,
+}) => {
+  console.log("isLoading", isLoading);
+
+  if (isLoading)
+    return (
+      <div className="size-10 flex justify-center flex-col items-center">
+        spinner
+      </div>
+    );
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="outline-none flex justify-center flex-col items-center">
         <Avatar className="mb-1">
           <AvatarImage src={avatar} />
-          <AvatarFallback>{username.charAt(0)}</AvatarFallback>
+          <AvatarFallback>{username ? username.charAt(0) : "-"}</AvatarFallback>
         </Avatar>
 
-        <span className="text-sm">{email}</span>
+        {email && <span className="text-sm">{email}</span>}
       </DropdownMenuTrigger>
 
       <DropdownMenuContent>

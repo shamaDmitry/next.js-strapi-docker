@@ -2,6 +2,7 @@ version: '3.8'
 
 services:
   frontend:
+    container_name: dev.next.js.site
     build:
       context: ../frontend
       dockerfile: ../dev-config/Dockerfile.frontend
@@ -12,6 +13,7 @@ services:
     networks:
       - strapi
   cms:
+    container_name: dev.cms.strapi
     build:
       context: ../cms
       dockerfile: ../dev-config/Dockerfile.cms
@@ -35,6 +37,7 @@ services:
     networks:
       - strapi
   db:
+    container_name: dev.db
     image: postgres:14.1-alpine
     restart: always
     ports:

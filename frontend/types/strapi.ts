@@ -48,3 +48,18 @@ export interface Post {
   slug: string;
   article_type: PostType;
 }
+
+export interface User {
+  ok: boolean;
+  data: {
+    id: string;
+    username: string;
+    email: string;
+    provider: string;
+    confirmed: boolean;
+    blocked: boolean;
+    createdAt: string;
+    updatedAt: string;
+  } | null;
+  error?: null;
+}
