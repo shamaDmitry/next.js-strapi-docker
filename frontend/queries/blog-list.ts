@@ -26,7 +26,6 @@ export const blogListQuery = ({
   return qs.stringify(
     {
       pagination: pagination,
-      // ...pagination,
       filters: {
         ...typeObj,
         title: {

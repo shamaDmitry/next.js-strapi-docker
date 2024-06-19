@@ -22,8 +22,6 @@ const UserNavMenu: FC<UserNavMenuProps> = ({
   email,
   avatar,
 }) => {
-  console.log("isLoading", isLoading);
-
   if (isLoading)
     return (
       <div className="size-10 flex justify-center flex-col items-center">

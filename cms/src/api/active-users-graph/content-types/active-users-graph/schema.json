@@ -1,0 +1,23 @@
+{
+  "kind": "collectionType",
+  "collectionName": "active_users_graphs",
+  "info": {
+    "singularName": "active-users-graph",
+    "pluralName": "active-users-graphs",
+    "displayName": "Active Users graph",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "content": {
+      "displayName": "Active Users item",
+      "type": "component",
+      "repeatable": true,
+      "component": "graph.active-users-item",
+      "required": true
+    }
+  }
+}

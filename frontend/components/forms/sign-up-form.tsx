@@ -42,6 +42,8 @@ export function SignupForm() {
         </CardHeader>
 
         <CardContent className="space-y-4">
+          <div className="text-red-500">{formState?.message}</div>
+
           <div className="">
             <Label htmlFor="username" className="flex mb-2">
               Username

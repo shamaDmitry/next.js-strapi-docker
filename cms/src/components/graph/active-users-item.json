@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_graph_active_users_items",
+  "info": {
+    "displayName": "Active Users item",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "date": {
+      "type": "date"
+    },
+    "value": {
+      "type": "biginteger"
+    }
+  }
+}

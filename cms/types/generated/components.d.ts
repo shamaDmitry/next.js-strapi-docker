@@ -62,6 +62,18 @@ export interface ContentSlider extends Schema.Component {
   };
 }
 
+export interface GraphActiveUsersItem extends Schema.Component {
+  collectionName: 'components_graph_active_users_items';
+  info: {
+    displayName: 'Active Users item';
+    description: '';
+  };
+  attributes: {
+    date: Attribute.Date;
+    value: Attribute.BigInteger;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface Components {
@@ -70,6 +82,7 @@ declare module '@strapi/types' {
       'content.review-item': ContentReviewItem;
       'content.reviews': ContentReviews;
       'content.slider': ContentSlider;
+      'graph.active-users-item': GraphActiveUsersItem;
     }
   }
 }

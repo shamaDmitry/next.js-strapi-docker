@@ -98,3 +98,19 @@ export async function getPageData(path: string, query: string) {
     console.error(error);
   }
 }
+
+export async function getAssetData(path: string, query: string) {
+  const baseUrl = getAssetURL();
+
+  const url = new URL(path, baseUrl);
+  url.search = query;
+
+  try {
+    const response = await fetch(url.href, { cache: "no-store" });
+    const data = await response.json();
+
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
+}

@@ -1,5 +1,6 @@
 import { getToken } from "@/data/services/get-token";
 import { getAssetURL } from "@/lib/utils";
+import { User } from "@/types/strapi";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 export const getCurrentUser = createAsyncThunk("user", async () => {
@@ -32,12 +33,19 @@ export const getCurrentUser = createAsyncThunk("user", async () => {
   }
 });
 
+interface initialStateType {
+  isLoading: boolean;
+  user: User | null;
+}
+
+const initialState: initialStateType = {
+  isLoading: false,
+  user: null,
+};
+
 export const userSlice = createSlice({
   name: "USER",
-  initialState: {
-    isLoading: false,
-    user: null,
-  },
+  initialState,
   reducers: {
     // setUser: (state, action) => {
     //   state.data = { ...state.data, ...action.payload };

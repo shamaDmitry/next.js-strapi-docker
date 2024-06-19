@@ -788,6 +788,39 @@ export interface PluginI18NLocale extends Schema.CollectionType {
   };
 }
 
+export interface ApiActiveUsersGraphActiveUsersGraph
+  extends Schema.CollectionType {
+  collectionName: 'active_users_graphs';
+  info: {
+    singularName: 'active-users-graph';
+    pluralName: 'active-users-graphs';
+    displayName: 'Active Users graph';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    content: Attribute.Component<'graph.active-users-item', true> &
+      Attribute.Required;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::active-users-graph.active-users-graph',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::active-users-graph.active-users-graph',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiArticleArticle extends Schema.CollectionType {
   collectionName: 'articles';
   info: {
@@ -1011,6 +1044,7 @@ declare module '@strapi/types' {
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'plugin::i18n.locale': PluginI18NLocale;
+      'api::active-users-graph.active-users-graph': ApiActiveUsersGraphActiveUsersGraph;
       'api::article.article': ApiArticleArticle;
       'api::article-type.article-type': ApiArticleTypeArticleType;
       'api::blog-page.blog-page': ApiBlogPageBlogPage;

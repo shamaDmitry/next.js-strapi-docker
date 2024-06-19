@@ -18,8 +18,6 @@ const DashboardHeader: FC<DashboardHeaderProps> = ({ className }) => {
     dispatch(getCurrentUser());
   }, [dispatch]);
 
-  console.log("userData", userData);
-
   return (
     <div
       className={cn({

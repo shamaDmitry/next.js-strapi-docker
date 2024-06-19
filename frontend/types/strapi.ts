@@ -50,16 +50,12 @@ export interface Post {
 }
 
 export interface User {
-  ok: boolean;
-  data: {
-    id: string;
-    username: string;
-    email: string;
-    provider: string;
-    confirmed: boolean;
-    blocked: boolean;
-    createdAt: string;
-    updatedAt: string;
-  } | null;
-  error?: null;
+  id: string;
+  username: string;
+  email: string;
+  provider: string;
+  confirmed: boolean;
+  blocked: boolean;
+  createdAt: string;
+  updatedAt: string;
 }
