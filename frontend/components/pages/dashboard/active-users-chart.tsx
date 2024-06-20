@@ -11,15 +11,21 @@ import {
   YAxis,
   Tooltip,
   ResponsiveContainer,
+  ReferenceLine,
 } from "recharts";
 
-const data = [
-  { name: "Page A", uv: 400, pv: 2400, amt: 2400 },
-  { name: "Page B", uv: 1400, pv: 2400, amt: 2400 },
-];
+interface ChartItem {
+  date: string;
+  id: number;
+  value: string;
+}
 
-export const ActiveUsersChart: FC = () => {
-  const [chartData, setChartData] = useState(null);
+interface ActiveUsersChartProps {
+  className: string;
+}
+
+const ActiveUsersChart: FC<ActiveUsersChartProps> = ({ className }) => {
+  const [chartData, setChartData] = useState<ChartItem[] | null>(null);
 
   useEffect(() => {
     const getData = async () => {
@@ -27,7 +33,7 @@ export const ActiveUsersChart: FC = () => {
         await getAssetData("/api/active-users-graphs", activeUsersChart)
       );
 
-      setChartData(data);
+      setChartData(data.data[0].content);
       return data;
     };
 
@@ -37,15 +43,21 @@ export const ActiveUsersChart: FC = () => {
   }, []);
 
   return (
-    <>
+    <div className={className}>
       {chartData && (
         <ResponsiveContainer width="100%" height="100%">
           <LineChart
-            width={600}
-            height={300}
-            data={chartData.data[0].content}
-            margin={{ top: 5, right: 20, bottom: 5, left: 0 }}
+            data={chartData}
+            margin={{ top: 0, right: 0, bottom: 0, left: 0 }}
           >
+            <ReferenceLine
+              y={650}
+              label="Max"
+              viewBox={{ height: 10, width: 200 }}
+              stroke="red"
+              strokeDasharray="5 5"
+            />
+
             <Line
               type="monotone"
               dataKey="value"
@@ -53,12 +65,20 @@ export const ActiveUsersChart: FC = () => {
               activeDot={{ r: 8 }}
             />
             <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
-            <XAxis dataKey="date" />
-            <YAxis />
+
+            <XAxis
+              dataKey="date"
+              interval={0}
+              padding={{ left: 30, right: 30 }}
+            />
+
+            <YAxis padding={{ top: 30, bottom: 30 }} width={40} />
             <Tooltip />
           </LineChart>
         </ResponsiveContainer>
       )}
-    </>
+    </div>
   );
 };
+
+export default ActiveUsersChart;

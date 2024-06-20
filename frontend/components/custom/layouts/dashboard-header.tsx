@@ -21,14 +21,12 @@ const DashboardHeader: FC<DashboardHeaderProps> = ({ className }) => {
   return (
     <div
       className={cn({
-        "sticky top-0 bg-white z-10 shadow-md p-4 flex items-center justify-between left-0":
+        "sticky top-0 bg-white z-10 shadow-md p-4 flex items-center justify-between left-0 h-20":
           true,
         [`${className}`]: className,
       })}
     >
-      <div>Page Title</div>
-
-      <div>
+      <div className="ml-auto">
         {userData.user && (
           <UserNavMenu
             isLoading={userData.isLoading}

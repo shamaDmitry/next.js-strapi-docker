@@ -1,4 +1,5 @@
 import ContentCard from "@/components/custom/content/content-card";
+import { Headline } from "@/components/custom/content/headline";
 import Reviews from "@/components/custom/content/reviews";
 import Slider from "@/components/custom/content/slider";
 import MainLayout from "@/components/custom/layouts/main-layout";
@@ -31,35 +32,33 @@ export default async function Home() {
       <ContentCard>
         <div className="container">
           <div className="text-center">
-            <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl mb-5 border-b pb-4 inline-block">
-              {title}
-            </h1>
+            <Headline className="mb-8">{title}</Headline>
 
-            <h2 className="scroll-m-20 pb-2 text-3xl font-semibold tracking-tight first:mt-0 mb-12">
+            <Headline tag="h2" className="mb-12">
               {description}
-            </h2>
+            </Headline>
           </div>
 
           <div className="max-w-sm mx-auto text-center space-y-4 mb-8">
-            <h3 className="px-6 scroll-m-20 text-2xl font-semibold tracking-tight">
-              redux counter
-            </h3>
+            <Headline tag="h3" className="mb-2">
+              Redux counter
+            </Headline>
 
             <Counter />
           </div>
 
           <div className="px-12 mb-12">
-            <h3 className="px-6 scroll-m-20 text-2xl font-semibold tracking-tight">
+            <Headline tag="h3" className="mb-2 px-6">
               Slider from cms
-            </h3>
+            </Headline>
 
             <Slider data={sliderData.items} />
           </div>
 
           <div className="px-12">
-            <h3 className="px-6 scroll-m-20 text-2xl font-semibold tracking-tight mb-4">
+            <Headline tag="h3" className="mb-2 px-6">
               Reviews from cms
-            </h3>
+            </Headline>
 
             <Reviews className="px-6" data={reviewsData.reviews} />
           </div>
