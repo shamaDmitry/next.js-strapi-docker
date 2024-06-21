@@ -10,7 +10,7 @@ import Link from "next/link";
 import { FC } from "react";
 
 interface UserNavMenuProps {
-  isLoading: boolean;
+  isLoading?: boolean;
   username: string | null;
   email?: string;
   avatar?: string;

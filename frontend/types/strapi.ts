@@ -58,4 +58,6 @@ export interface User {
   blocked: boolean;
   createdAt: string;
   updatedAt: string;
+  position: string;
+  birthdate: Date;
 }
