@@ -772,6 +772,7 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
     >;
     birthdate: Attribute.Date;
     position: Attribute.String;
+    avatar: Attribute.Media;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<

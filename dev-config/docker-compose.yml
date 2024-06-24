@@ -10,6 +10,9 @@ services:
       - 3000:3000
     volumes:
       - ../frontend:/usr/app
+    environment:
+      NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: ${NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY}
+      STRIPE_SECRET_KEY: ${STRIPE_SECRET_KEY}
     networks:
       - strapi
   cms:

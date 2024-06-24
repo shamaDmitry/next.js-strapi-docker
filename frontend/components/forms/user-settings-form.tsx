@@ -19,7 +19,9 @@ import { PlainError } from "../errors/plain-error";
 
 type Inputs = {
   username: string;
+  birthdate: string;
   position: string;
+  avatar: string;
 };
 
 export function UserSettingsForm() {
@@ -53,11 +55,31 @@ export function UserSettingsForm() {
     // }
   };
 
-  console.log("errors", errors);
-
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="mb-4 space-y-4">
+        <div>
+          <Label htmlFor="Avatar" className="flex mb-2">
+            Avatar
+          </Label>
+
+          <Input
+            id="Avatar"
+            type="file"
+            placeholder="Avatar"
+            // defaultValue={userData.user?.username}
+            className="focus-visible:ring-offset-0 focus-visible:ring-0"
+            {...register("username", {
+              required: {
+                message: "required",
+                value: true,
+              },
+            })}
+          />
+
+          <PlainError error={errors.username?.message} />
+        </div>
+
         <div>
           <Label htmlFor="username" className="flex mb-2">
             Username
@@ -68,7 +90,7 @@ export function UserSettingsForm() {
             type="text"
             placeholder="Username"
             defaultValue={userData.user?.username}
-            className="border-red-500 focus-visible:ring-offset-0 focus-visible:ring-0"
+            className="focus-visible:ring-offset-0 focus-visible:ring-0"
             {...register("username", {
               required: {
                 message: "required",
@@ -82,7 +104,6 @@ export function UserSettingsForm() {
 
         <div>
           <Label className="flex mb-2">Birthdate</Label>
-
           <Popover>
             <PopoverTrigger asChild>
               <Button
@@ -127,6 +148,7 @@ export function UserSettingsForm() {
           <Label htmlFor="position" className="flex mb-2">
             Position
           </Label>
+
           <Input
             id="position"
             type="text"
