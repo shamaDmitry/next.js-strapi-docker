@@ -3,7 +3,7 @@ import React, { FC, PropsWithChildren } from "react";
 
 interface HeadlineProps extends PropsWithChildren {
   id?: string;
-  tag?: string;
+  tag?: "h1" | "h2" | "h3" | "h4";
   className?: string;
 }
 
