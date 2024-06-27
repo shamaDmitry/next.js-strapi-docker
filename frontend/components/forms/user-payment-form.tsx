@@ -44,6 +44,8 @@ function CheckoutForm() {
       [e.currentTarget.name]: e.currentTarget.value,
     });
 
+    console.log("input", input);
+
     elements?.update({ amount: input.customDonation });
   };
 
@@ -75,7 +77,7 @@ function CheckoutForm() {
         elements,
         clientSecret,
         confirmParams: {
-          return_url: `${window.location.origin}/profile/result`,
+          return_url: `${window.location.origin}/profile`,
           payment_method_data: {
             billing_details: {
               name: input.cardholderName,
