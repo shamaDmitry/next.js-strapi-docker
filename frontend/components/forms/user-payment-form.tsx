@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { createPaymentIntent } from "@/lib/stripe/actions";
-import getStripe from "@/lib/stripe/get-stripe";
+import getStripe, { formatAmountForStripe } from "@/lib/stripe/get-stripe";
 
 import {
   useStripe,
@@ -11,8 +11,10 @@ import {
   Elements,
 } from "@stripe/react-stripe-js";
 import { StripeError } from "@stripe/stripe-js";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PaymentStatus from "./strapi/payment-status";
+import { CURRENCY } from "@/lib/stripe/config";
+import Spinner from "@/components/custom/content/spinner";
 
 interface PaymentFormState {
   customDonation: number;
@@ -23,9 +25,9 @@ interface PaymentState {
   status: "initial" | "processing" | "error";
 }
 
-function CheckoutForm() {
+function CheckoutForm({ amount }: { amount: number }) {
   const [input, setInput] = useState<PaymentFormState>({
-    customDonation: 10,
+    customDonation: amount,
     cardholderName: "",
   });
 
@@ -44,9 +46,9 @@ function CheckoutForm() {
       [e.currentTarget.name]: e.currentTarget.value,
     });
 
-    console.log("input", input);
-
-    elements?.update({ amount: input.customDonation });
+    elements?.update({
+      amount: formatAmountForStripe(input.customDonation, CURRENCY),
+    });
   };
 
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (e) => {
@@ -77,12 +79,12 @@ function CheckoutForm() {
         elements,
         clientSecret,
         confirmParams: {
-          return_url: `${window.location.origin}/profile`,
-          payment_method_data: {
-            billing_details: {
-              name: input.cardholderName,
-            },
-          },
+          return_url: `${window.location.origin}/thank-you?amount=${input.customDonation}`,
+          // payment_method_data: {
+          //   billing_details: {
+          //     name: input.cardholderName,
+          //   },
+          // },
         },
       });
 
@@ -101,16 +103,19 @@ function CheckoutForm() {
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <input
-          type="number"
-          className="border w-full px-4 py-2 rounded"
-          name="customDonation"
-          value={input.customDonation}
-          onChange={handleInputChange}
-        />
+        <div className="mb-2">
+          <label className="block">Custom Donation</label>
+          <input
+            type="number"
+            className="border w-full px-4 py-2 rounded"
+            name="customDonation"
+            value={input.customDonation}
+            onChange={handleInputChange}
+          />
+        </div>
 
-        <fieldset className="elements-style">
-          <legend>Your payment details:</legend>
+        <fieldset className="">
+          <legend className="mb-2">Your payment details:</legend>
 
           {paymentType === "card" ? (
             <input
@@ -123,17 +128,20 @@ function CheckoutForm() {
             />
           ) : null}
 
-          <div className="py-4">
-            <PaymentElement
-              onChange={(e) => {
-                setPaymentType(e.value.type);
-              }}
-            />
-          </div>
+          {!stripe || !elements ? (
+            <Spinner className="size-10 border-4 border-t-blue-600" />
+          ) : (
+            <div className="py-4">
+              <PaymentElement
+                onChange={(e) => {
+                  setPaymentType(e.value.type);
+                }}
+              />
+            </div>
+          )}
         </fieldset>
 
         <Button
-          className="elements-style-background"
           type="submit"
           disabled={
             !["initial", "succeeded", "error"].includes(payment.status) ||
@@ -149,11 +157,14 @@ function CheckoutForm() {
 }
 
 export function UserPaymentForm() {
+  const amount = 100;
+
   return (
     <Elements
       stripe={getStripe()}
       options={{
         appearance: {
+          labels: "floating",
           variables: {
             colorIcon: "#6772e5",
             fontFamily: "Roboto, Open Sans, Segoe UI, sans-serif",
@@ -161,10 +172,10 @@ export function UserPaymentForm() {
         },
         currency: "usd",
         mode: "payment",
-        amount: 1000,
+        amount,
       }}
     >
-      <CheckoutForm />
+      <CheckoutForm amount={amount} />
     </Elements>
   );
 }
